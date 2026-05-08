@@ -2482,8 +2482,8 @@ function parseFlashYaml(text) {
     // source
     const srcM = block.match(/^\s+source:\s*(.+)/m);
     card.source = srcM ? srcM[1].trim() : '';
-    // front（ブロックスカラー）
-    const frontM = block.match(/^\s+front:\s*\|-\n([\s\S]*?)(?=\n\s+\w+:|$)/m);
+    // front（ブロックスカラー）: 次のASCIIキー行（blanks:/source:等）が来るまで全行取得
+    const frontM = block.match(/^\s+front:\s*\|-\n([\s\S]*?)(?=\n  [a-z])/m);
     if (frontM) {
       card.front = frontM[1].replace(/^\s{4}/gm, '').trimEnd();
     } else {
